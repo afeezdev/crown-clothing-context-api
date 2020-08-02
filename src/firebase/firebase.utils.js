@@ -1,19 +1,16 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-import collectionComponent from '../pages/collection/collection.component';
-
-
 
 const config = {
-    apiKey: "AIzaSyBaNRohCRTPv4af9tDY2TMgagq650tssms",
-    authDomain: "clothes-site.firebaseapp.com",
-    databaseURL: "https://clothes-site.firebaseio.com",
-    projectId: "clothes-site",
-    storageBucket: "clothes-site.appspot.com",
-    messagingSenderId: "244009107687",
-    appId: "1:244009107687:web:7a6c35342bab6e98cca242",
-    measurementId: "G-J3FEN5GLHG"
+    apiKey: "AIzaSyCciyLeFUWtjjHsmPmguz1JbmUQ1DNPmLI",
+    authDomain: "e-commerce-clothes-8986b.firebaseapp.com",
+    databaseURL: "https://e-commerce-clothes-8986b.firebaseio.com",
+    projectId: "e-commerce-clothes-8986b",
+    storageBucket: "e-commerce-clothes-8986b.appspot.com",
+    messagingSenderId: "819970551996",
+    appId: "1:819970551996:web:9cb7e197e8ea48afefa0b9",
+    measurementId: "G-XXB3890X3B"
 };
 
 firebase.initializeApp(config);
