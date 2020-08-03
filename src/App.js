@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
@@ -13,12 +11,10 @@ import { GlobalStyle } from './global.styles';
 
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
-import { setCurrentUser } from './redux/user/user.action'; 
-import { selectCurrentUser } from './redux/user/user.selector';
+import CurrentUserContext from './contexts/current-user/current-user.context'; 
 
-// import CurrentUSerContext from './contexts/current-user/current-user.context'; 
-
-const App = ({ setCurrentUser, currentUser }) => {
+const App = () => {
+  const [ currentUser, setCurrentUser ] = useState(null)
   let unsubScribeFromAuth = null;
 
 const fetchCurrentUser = () => {
@@ -39,17 +35,19 @@ const fetchCurrentUser = () => {
 
   useEffect(() => {
     fetchCurrentUser()
+
+    return(() => {
+      unsubScribeFromAuth()
+    })
   }, [setCurrentUser])
-
-// componentWillUnmount {
-//   unsubScribeFromAuth(); 
-
-// }
 
     return (
       <div>
         <GlobalStyle />
-        <Header />
+
+        <CurrentUserContext.Provider value={currentUser}>
+          <Header />
+        </CurrentUserContext.Provider>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
@@ -69,17 +67,5 @@ const fetchCurrentUser = () => {
       </div>
     );
 }
-
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
-})
-
   
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps 
-  )(App); 
+export default App; 
